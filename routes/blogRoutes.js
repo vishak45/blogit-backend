@@ -3,15 +3,16 @@ const router = express.Router();
 const { getBlogByKey,createBlog, getUserBlogs, deleBlogs, updateBlogs, allBlogs ,getSpecificBlog,likeBlog} = require('../controllers/blogController');
 const protect = require('../middleware/authMiddleWare');
 const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('./cloudinary');
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'blogit-images', // Your folder name in Cloudinary
+    allowed_formats: ['jpg', 'png', 'jpeg']
+  }
 });
+
 const upload = multer({ storage: storage });
 router.get('/allblog', allBlogs);
 router.post('/create',protect,upload.array('images',3), createBlog);
