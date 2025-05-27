@@ -4,7 +4,7 @@ const { getBlogByKey,createBlog, getUserBlogs, deleBlogs, updateBlogs, allBlogs 
 const protect = require('../middleware/authMiddleWare');
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cloudinary = require('./cloudinary');
+const cloudinary = require('../cloudinary');
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
