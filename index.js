@@ -17,6 +17,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/user', userRoutes);
 app.use('/api/blog', blogRoutes);
 
+app.get('/', (req, res) => {
+  res.status(200).send('Backend is alive!');
+});
+
 app.listen(port, () => {    
   console.log(`Example app listening on port :${port}`);
 });
